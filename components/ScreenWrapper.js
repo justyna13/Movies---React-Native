@@ -11,11 +11,11 @@ const ios = Platform.OS === 'ios';
 
 export default function ScreenWrapper() {
   const [trending, setTrending] = useState([1, 2, 3]);
-  const [upcoming, setUpcoming] = useState([1,2, 3]);
-  const [topRated, setTopRated] = useState([1,2, 3]);
+  const [upcoming, setUpcoming] = useState([1, 2, 3]);
+  const [topRated, setTopRated] = useState([1, 2, 3]);
 
   return (
-    <View className="mt-10 bg-neutral-800 flex-1">
+    <View className="pt-2 bg-neutral-800 flex-1">
       <SafeAreaView className={ios ? '-mb-2' : 'mb-3'}>
         <StatusBar style='light' />
         <View className="flex-row justify-between items-center mx-4">
@@ -29,9 +29,9 @@ export default function ScreenWrapper() {
         </View>
       </SafeAreaView>
       <ScrollView
-       showsVerticalScrollIndicator={false}
-       contentContainerStyle={{ paddingBottom: 10 }}
-       >
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 10 }}
+      >
         {/* Trending movies carousel */}
         <TrendingMovies data={trending} />
 
