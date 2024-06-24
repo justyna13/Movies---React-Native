@@ -7,7 +7,7 @@ import { useState } from 'react';
 import MovieList from '../components/MovieList';
 
 
-var { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const ios = Platform.OS === "ios";
 const verticalMargin = ios ? '' : 'my-3';
 
