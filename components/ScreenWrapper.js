@@ -5,11 +5,14 @@ import { Bars3CenterLeftIcon, MagnifyingGlassIcon } from 'react-native-heroicons
 import { styles } from '../theme';
 import { useState } from 'react';
 import { TrendingMovies } from './TrendingMovies';
+import MovieList from './MovieList';
 
 const ios = Platform.OS === 'ios';
 
 export default function ScreenWrapper() {
   const [trending, setTrending] = useState([1, 2, 3]);
+  const [upcoming, setUpcoming] = useState([1,2, 3]);
+  const [topRated, setTopRated] = useState([1,2, 3]);
 
   return (
     <View className="mt-10 bg-neutral-800 flex-1">
@@ -31,6 +34,12 @@ export default function ScreenWrapper() {
        >
         {/* Trending movies carousel */}
         <TrendingMovies data={trending} />
+
+        {/* upcoming movies row */}
+        <MovieList title="Upcoming" data={upcoming} />
+
+        {/* top rated movies */}
+        <MovieList title="Top rated" data={topRated} />
       </ScrollView>
     </View>
   )

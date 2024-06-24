@@ -1,9 +1,16 @@
+import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableWithoutFeedback, Dimensions, Image } from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
 var {width, height} = Dimensions.get('window');
 
 export const TrendingMovies = ({ data }) => {
+    const navigation = useNavigation();
+
+    const handleClick = () => {
+        navigation.navigate('Movie', item);
+    }
+
     return (
         <View className="mb-8">
             <Text className="text-white text-xl mx-4 mb-5">Trending</Text>
