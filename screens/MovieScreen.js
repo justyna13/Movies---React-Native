@@ -8,6 +8,7 @@ import { styles, theme } from '../theme';
 import { LinearGradient } from 'expo-linear-gradient';
 import Cast from '../components/Cast';
 import MovieList from '../components/MovieList';
+import Loading from '../components/Loading';
 
 const ios = Platform.OS === 'ios';
 const topMargin = ios ? '' : 'mt-3';
@@ -19,6 +20,7 @@ export default function MovieScreen() {
     const navigation = useNavigation();
     const [isFavourite, toggleFavourite] = useState(false);
     const [cast, setCast] = useState([1, 2, 3, 4, 5]);
+    const [loading, setLoading] = useState(false);
     const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5]);
 
     useEffect(() => {
@@ -42,23 +44,31 @@ export default function MovieScreen() {
                         <HeartIcon size={35} color={isFavourite ? theme.background : 'white'} />
                     </TouchableOpacity>
                 </SafeAreaView>
-                <View>
-                    <Image
-                        source={require('../assets/images/moviePoster1.jpg')}
-                        style={{ width, height: height * 0.55 }}
-                    />
-                    <LinearGradient
-                        colors={['transparent', 'rgba(23, 23, 23, .8)', 'rgba(23, 23, 23, 1)']}
-                        style={{ width, height: height * 0.4 }}
-                        start={{ x: 0.5, y: 0 }}
-                        end={{ x: 0.5, y: 1 }}
-                        className="absolute z-31 bottom-0"
-                    />
-                </View>
+
+                {
+                    loading ? (
+                        <Loading />
+                    ) : (
+                        <View>
+                        <Image
+                            source={require('../assets/images/moviePoster1.jpg')}
+                            style={{ width, height: height * 0.55 }}
+                        />
+                        <LinearGradient
+                            colors={['transparent', 'rgba(23, 23, 23, .8)', 'rgba(23, 23, 23, 1)']}
+                            style={{ width, height: height * 0.4 }}
+                            start={{ x: 0.5, y: 0 }}
+                            end={{ x: 0.5, y: 1 }}
+                            className="absolute z-31 bottom-0"
+                        />
+                    </View>
+                    )
+                }
             </View>
 
             {/* movie details */}
-            <View style={{ marginTop: -(height * 0.09) }} className="space-y-3">
+            {loading && (
+                <View style={{ marginTop: -(height * 0.09) }} className="space-y-3">
                 {/* title */}
                 <Text className="text-white text-center text-3xl font-bold tracking-wider">
                     {movieName}
@@ -81,12 +91,21 @@ export default function MovieScreen() {
                     Officia laborum voluptate officia ad ipsum eu anim exercitation fugiat cillum aute. Nulla reprehenderit non minim tempor non veniam dolore quis pariatur occaecat amet incididunt aliquip velit. Anim ea cupidatat sint ipsum ad commodo ullamco. In duis et in velit cillum magna amet commodo duis anim.
                 </Text>
             </View>
+            )}
 
             {/* cast */}
-            <Cast navigation={navigation} cast={cast} />
+            {
+                loading && (
+                    <Cast navigation={navigation} cast={cast} />
+                )
+            }
 
             {/* similar movies */}
-            <MovieList title="Similar movies" data={similarMovies} hideSeeAll />
+            {
+                loading && (
+                    <MovieList title="Similar movies" data={similarMovies} hideSeeAll />
+                )
+            }
         </ScrollView>
     )
 }

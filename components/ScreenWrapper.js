@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { TrendingMovies } from './TrendingMovies';
 import MovieList from './MovieList';
 import { useNavigation } from '@react-navigation/native';
+import Loading from './Loading';
 
 const ios = Platform.OS === 'ios';
 
@@ -14,6 +15,7 @@ export default function ScreenWrapper() {
   const [trending, setTrending] = useState([1, 2, 3]);
   const [upcoming, setUpcoming] = useState([1, 2, 3]);
   const [topRated, setTopRated] = useState([1, 2, 3]);
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
   return (
@@ -30,19 +32,25 @@ export default function ScreenWrapper() {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 10 }}
-      >
-        {/* Trending movies carousel */}
-        <TrendingMovies data={trending} />
-
-        {/* upcoming movies row */}
-        <MovieList title="Upcoming" data={upcoming} />
-
-        {/* top rated movies */}
-        <MovieList title="Top rated" data={topRated} />
-      </ScrollView>
+      {
+        loading ? (
+          <Loading />
+        ) : (
+          <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 10 }}
+        >
+          {/* Trending movies carousel */}
+          <TrendingMovies data={trending} />
+  
+          {/* upcoming movies row */}
+          <MovieList title="Upcoming" data={upcoming} />
+  
+          {/* top rated movies */}
+          <MovieList title="Top rated" data={topRated} />
+        </ScrollView>
+        )
+      }
     </View>
   )
 }
